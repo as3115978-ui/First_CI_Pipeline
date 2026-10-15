@@ -1,0 +1,1303 @@
+﻿Last login: Wed Oct 14 23:42:51 on ttys000
+anshusingh@192 ~ % python3 --version
+Python 3.14.7
+anshusingh@192 ~ % gh --version
+gh version 2.102.0 (2026-09-30)
+https://github.com/cli/cli/releases/tag/v2.102.0
+anshusingh@192 ~ % gh auth login
+? Where do you use GitHub? GitHub.com
+? What is your preferred protocol for Git operations on this host? HTTPS
+? Authenticate Git with your GitHub credentials? Yes
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! One-time code (8E6C-CCA5) copied to clipboard
+Press Enter to open https://github.com/login/device in your browser...            
+✓ Authentication complete.
+- gh config set -h github.com git_protocol https
+✓ Configured git protocol
+✓ Logged in as as3115978-ui
+anshusingh@192 ~ % gh auth status
+github.com
+  ✓ Logged in to github.com account as3115978-ui (keyring)
+  - Active account: true
+  - Git operations protocol: https
+  - Token: gho_************************************
+  - Token scopes: 'gist', 'read:org', 'repo', 'workflow'
+anshusingh@192 ~ % gh api user --jq .login
+as3115978-ui
+anshusingh@192 ~ % cd ~/Downloads/First_CI_Pipeline
+anshusingh@192 First_CI_Pipeline % python3 -m venv .venv
+anshusingh@192 First_CI_Pipeline % source .venv/bin/activate
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pip install -r 
+
+Usage:   
+  /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3 -m pip install [options] <requirement specifier> 
+[package-index-options] ...
+  /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3 -m pip install [options] -r <requirements file> 
+[package-index-options] ...
+  /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3 -m pip install [options] [-e] <vcs project url> ...
+  /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3 -m pip install [options] [-e] <local project path> ...
+  /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3 -m pip install [options] <archive url/path> ...
+
+-r option requires 1 argument
+(.venv) anshusingh@192 First_CI_Pipeline % ls
+codes			pytest.ini		README.md		requirements.txt	test_cases
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pip install -r requirements.txt
+Collecting pytest (from -r requirements.txt (line 1))
+  Using cached pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting iniconfig>=1.0.1 (from pytest->-r requirements.txt (line 1))
+  Using cached iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Collecting packaging>=22 (from pytest->-r requirements.txt (line 1))
+  Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest->-r requirements.txt (line 1))
+  Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pygments>=2.7.2 (from pytest->-r requirements.txt (line 1))
+  Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Using cached pytest-9.1.1-py3-none-any.whl (386 kB)
+Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+Using cached iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Using cached packaging-26.3-py3-none-any.whl (129 kB)
+Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+Installing collected packages: pygments, pluggy, packaging, iniconfig, pytest
+Successfully installed iniconfig-2.3.1 packaging-26.3 pluggy-1.6.0 pygments-2.21.0 pytest-9.1.1
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py .....                                                                         [ 10%]
+test_cases/test_22_anagram_strings.py .....                                                                      [ 20%]
+test_cases/test_23_sort_without_sort.py .....                                                                    [ 30%]
+test_cases/test_24_merge_sorted_lists.py .....                                                                   [ 40%]
+test_cases/test_25_max_min_list.py .....                                                                         [ 50%]
+test_cases/test_26_sum_of_list.py .....                                                                          [ 60%]
+test_cases/test_27_rotate_list.py .....                                                                          [ 70%]
+test_cases/test_28_set_intersection.py .....                                                                     [ 80%]
+test_cases/test_29_armstrong_number.py .....                                                                     [ 90%]
+test_cases/test_30_decimal_to_binary.py .....                                                                    [100%]
+
+================================================== 50 passed in 0.04s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git init -b main
+Initialized empty Git repository in /Users/anshusingh/Downloads/First_CI_Pipeline/.git/
+(.venv) anshusingh@192 First_CI_Pipeline % git config user.name "as3115978-ui"
+(.venv) anshusingh@192 First_CI_Pipeline % git config user.email "as3115978@gmail.com"                    
+(.venv) anshusingh@192 First_CI_Pipeline % open -e README.md
+(.venv) anshusingh@192 First_CI_Pipeline % githubUser=$(gh api user --jq .login)
+(.venv) anshusingh@192 First_CI_Pipeline % gh repo create "$githubUser/First_CI_Pipeline" --public --source . --remote origin
+✓ Created repository as3115978-ui/First_CI_Pipeline on github.com
+  https://github.com/as3115978-ui/First_CI_Pipeline
+✓ Added remote https://github.com/as3115978-ui/First_CI_Pipeline.git
+(.venv) anshusingh@192 First_CI_Pipeline % git remote -v
+origin	https://github.com/as3115978-ui/First_CI_Pipeline.git (fetch)
+origin	https://github.com/as3115978-ui/First_CI_Pipeline.git (push)
+(.venv) anshusingh@192 First_CI_Pipeline % gh auth setup-git
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_21_largest_word.py
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [ 20%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [ 40%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [ 60%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [ 80%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add README.md .gitignore pytest.ini requirements.txt
+git add codes/221_largest_word.py
+fatal: pathspec 'codes/221_largest_word.py' did not match any files
+(.venv) anshusingh@192 First_CI_Pipeline % git add codes/221_largest_word.py test_cases/test_21_largest_word.pygit     
+fatal: pathspec 'codes/221_largest_word.py' did not match any files
+(.venv) anshusingh@192 First_CI_Pipeline % ls
+codes			pytest.ini		README.md		requirements.txt	test_cases
+(.venv) anshusingh@192 First_CI_Pipeline % ls codes                                                               
+ls test_cases
+__pycache__			24_merge_sorted_lists.py	28_set_intersection.py
+21_largest_word.py		25_max_min_list.py		29_armstrong_number.py
+22_anagram_strings.py		26_sum_of_list.py		30_decimal_to_binary.py
+23_sort_without_sort.py		27_rotate_list.py
+__pycache__			test_24_merge_sorted_lists.py	test_28_set_intersection.py
+test_21_largest_word.py		test_25_max_min_list.py		test_29_armstrong_number.py
+test_22_anagram_strings.py	test_26_sum_of_list.py		test_30_decimal_to_binary.py
+test_23_sort_without_sort.py	test_27_rotate_list.py
+(.venv) anshusingh@192 First_CI_Pipeline % git add codes/21_largest_word.py test_cases/test_21_largest_word.py
+(.venv) anshusingh@192 First_CI_Pipeline % git diff --cached --name-only
+.gitignore
+README.md
+codes/21_largest_word.py
+pytest.ini
+requirements.txt
+test_cases/test_21_largest_word.py
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 21: largest word with tests"
+[main (root-commit) ea9fe58] Add program 21: largest word with tests
+ 6 files changed, 138 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 README.md
+ create mode 100644 codes/21_largest_word.py
+ create mode 100644 pytest.ini
+ create mode 100644 requirements.txt
+ create mode 100644 test_cases/test_21_largest_word.py
+(.venv) anshusingh@192 First_CI_Pipeline % git push -u origin main
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (10/10), 2.70 KiB | 2.70 MiB/s, done.
+Total 10 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+(.venv) anshusingh@192 First_CI_Pipeline % cat .github/workflows/python-ci.yml
+# Display name in the GitHub Actions tab.
+name: Python CI
+
+# Test pushes to main and pull requests targeting main.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    # Each run uses a fresh Ubuntu machine.
+    runs-on: ubuntu-latest
+    steps:
+      # Download repository code and tests.
+      - name: Check out code
+        uses: actions/checkout@v6
+      # Install the assignment's Python version.
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      # Install pytest using the same dependency file as local development.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      # Verbose results show each test; any failure fails the job.
+      - name: Run tests
+        run: python -m pytest -v
+(.venv) anshusingh@192 First_CI_Pipeline % git add .github/workflows/python-ci.yml
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add GitHub Actions workflow for pytest"
+git push origin main
+[main 2587721] Add GitHub Actions workflow for pytest
+ 1 file changed, 33 insertions(+)
+ create mode 100644 .github/workflows/python-ci.yml
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (5/5), 826 bytes | 826.00 KiB/s, done.
+Total 5 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   ea9fe58..2587721  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % gh run list --branch main --limit 1
+STATUS  TITLE                                   WORKFLOW   BRANCH  EVENT  ID           ELAPSED  AGE                   
+✓       Add GitHub Actions workflow for pytest  Python CI  main    push   38618166923  14s      less than a minute ago
+(.venv) anshusingh@192 First_CI_Pipeline % gh run watch RUN_ID --exit-status
+failed to get run: HTTP 404: Not Found (https://api.github.com/repos/as3115978-ui/First_CI_Pipeline/actions/runs/RUN_ID?exclude_pull_requests=true)
+(.venv) anshusingh@192 First_CI_Pipeline % gh run watch 38618166923 --exit-status
+Run Python CI (38618166923) has already completed with 'success'
+(.venv) anshusingh@192 First_CI_Pipeline % gh run view 38618166923 --log-failed
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_22_anagram_strings.py
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 20%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 40%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 60%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 80%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % 
+
+git add codes/22_anagram_strings.py
+git add test_cases/test_22_anagram_strings.py
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 22: anagram check with tests"
+git push origin main
+[main e3b9ae4] Add program 22: anagram check with tests
+ 2 files changed, 36 insertions(+)
+ create mode 100644 codes/22_anagram_strings.py
+ create mode 100644 test_cases/test_22_anagram_strings.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 952 bytes | 952.00 KiB/s, done.
+Total 6 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   2587721..e3b9ae4  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_23_sort_without_sort.py
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 20%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 40%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 60%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 80%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add codes/23_sort_without_sort.py  git add test_cases/test_23_sort_without_sort.py
+fatal: pathspec 'git' did not match any files
+(.venv) anshusingh@192 First_CI_Pipeline % git add codes/23_sort_without_sort.py
+(.venv) anshusingh@192 First_CI_Pipeline % git add test_cases/test_23_sort_without_sort.py
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 23: bubble sort with tests"
+git push origin main
+[main 0b77e00] Add program 23: bubble sort with tests
+ 2 files changed, 44 insertions(+)
+ create mode 100644 codes/23_sort_without_sort.py
+ create mode 100644 test_cases/test_23_sort_without_sort.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1.09 KiB | 1.09 MiB/s, done.
+Total 6 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   e3b9ae4..0b77e00  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v 
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_24_merge_sorted_lists.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 20%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 40%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 60%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 80%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add codes/24_merge_sorted_lists.py
+
+(.venv) anshusingh@192 First_CI_Pipeline % git add test_cases/test_24_merge_sorted_lists.py
+
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 24: merge sorted lists with tests"
+git push origin main
+[main 4a6dcc3] Add program 24: merge sorted lists with tests
+ 2 files changed, 48 insertions(+)
+ create mode 100644 codes/24_merge_sorted_lists.py
+ create mode 100644 test_cases/test_24_merge_sorted_lists.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1.04 KiB | 1.04 MiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   0b77e00..4a6dcc3  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_25_max_min_list.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 20%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 40%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 60%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 80%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v
+git add codes/25_max_min_list.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add test_cases/test_25_max_min_list.py
+
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 25: maximum and minimum with tests"
+git push origin main
+[main f3845bf] Add program 25: maximum and minimum with tests
+ 2 files changed, 42 insertions(+)
+ create mode 100644 codes/25_max_min_list.py
+ create mode 100644 test_cases/test_25_max_min_list.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 942 bytes | 942.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   4a6dcc3..f3845bf  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_26_sum_of_list.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 20%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 40%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 60%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 80%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v
+git add codes/26_sum_of_list.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add test_cases/test_26_sum_of_list.py
+
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 26: sum of list with tests"
+git push origin main
+
+[main 2b0f06a] Add program 26: sum of list with tests
+ 2 files changed, 35 insertions(+)
+ create mode 100644 codes/26_sum_of_list.py
+ create mode 100644 test_cases/test_26_sum_of_list.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 850 bytes | 850.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   f3845bf..2b0f06a  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_27_rotate_list.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 20%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 40%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 60%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 80%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v
+git add codes/27_rotate_list.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add test_cases/test_27_rotate_list.py
+
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 27: list rotation with tests"
+git push origin main
+
+[main bb11b5a] Add program 27: list rotation with tests
+ 2 files changed, 42 insertions(+)
+ create mode 100644 codes/27_rotate_list.py
+ create mode 100644 test_cases/test_27_rotate_list.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 958 bytes | 958.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   2b0f06a..bb11b5a  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_28_set_intersection.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 20%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 40%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 60%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 80%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v
+git add codes/28_set_intersection.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add test_cases/test_28_set_intersection.py
+
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 28: set intersection with tests"
+git push origin main
+
+[main 485a7d2] Add program 28: set intersection with tests
+ 2 files changed, 41 insertions(+)
+ create mode 100644 codes/28_set_intersection.py
+ create mode 100644 test_cases/test_28_set_intersection.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 993 bytes | 993.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   bb11b5a..485a7d2  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_29_armstrong_number.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 20%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 40%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 60%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 80%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v
+git add codes/29_armstrong_number.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add test_cases/test_29_armstrong_number.py
+
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 29: Armstrong number with tests"
+git push origin main
+
+[main cba0ee8] Add program 29: Armstrong number with tests
+ 2 files changed, 43 insertions(+)
+ create mode 100644 codes/29_armstrong_number.py
+ create mode 100644 test_cases/test_29_armstrong_number.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 930 bytes | 930.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   485a7d2..cba0ee8  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v test_cases/test_30_decimal_to_binary.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+collected 5 items                                                                                                      
+
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 20%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 40%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 60%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 80%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 5 passed in 0.00s ===================================================
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v
+git add codes/30_decimal_to_binary.py
+
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git add test_cases/test_30_decimal_to_binary.py
+
+(.venv) anshusingh@192 First_CI_Pipeline % git commit -m "Add program 30: decimal to binary with tests"
+git push origin main
+
+[main 9264b8e] Add program 30: decimal to binary with tests
+ 2 files changed, 49 insertions(+)
+ create mode 100644 codes/30_decimal_to_binary.py
+ create mode 100644 test_cases/test_30_decimal_to_binary.py
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1016 bytes | 1016.00 KiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+To https://github.com/as3115978-ui/First_CI_Pipeline.git
+   cba0ee8..9264b8e  main -> main
+(.venv) anshusingh@192 First_CI_Pipeline % python3 -m pytest -v                                        
+================================================= test session starts ==================================================
+platform darwin -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /Users/anshusingh/Downloads/First_CI_Pipeline/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/anshusingh/Downloads/First_CI_Pipeline
+configfile: pytest.ini
+testpaths: test_cases
+collected 50 items                                                                                                     
+
+test_cases/test_21_largest_word.py::test_simple_sentence PASSED                                                  [  2%]
+test_cases/test_21_largest_word.py::test_punctuation_is_ignored PASSED                                           [  4%]
+test_cases/test_21_largest_word.py::test_tie_returns_first_word PASSED                                           [  6%]
+test_cases/test_21_largest_word.py::test_single_word PASSED                                                      [  8%]
+test_cases/test_21_largest_word.py::test_empty_sentence PASSED                                                   [ 10%]
+test_cases/test_22_anagram_strings.py::test_basic_anagram PASSED                                                 [ 12%]
+test_cases/test_22_anagram_strings.py::test_not_anagram PASSED                                                   [ 14%]
+test_cases/test_22_anagram_strings.py::test_case_and_spaces PASSED                                               [ 16%]
+test_cases/test_22_anagram_strings.py::test_empty_strings PASSED                                                 [ 18%]
+test_cases/test_22_anagram_strings.py::test_repeated_letters_and_different_lengths PASSED                        [ 20%]
+test_cases/test_23_sort_without_sort.py::test_unsorted_list PASSED                                               [ 22%]
+test_cases/test_23_sort_without_sort.py::test_empty_and_single_element PASSED                                    [ 24%]
+test_cases/test_23_sort_without_sort.py::test_negative_numbers_and_duplicates PASSED                             [ 26%]
+test_cases/test_23_sort_without_sort.py::test_sorted_and_reverse_sorted PASSED                                   [ 28%]
+test_cases/test_23_sort_without_sort.py::test_returns_new_list_without_mutating_input PASSED                     [ 30%]
+test_cases/test_24_merge_sorted_lists.py::test_interleaved_lists PASSED                                          [ 32%]
+test_cases/test_24_merge_sorted_lists.py::test_empty_lists PASSED                                                [ 34%]
+test_cases/test_24_merge_sorted_lists.py::test_negatives_and_duplicates PASSED                                   [ 36%]
+test_cases/test_24_merge_sorted_lists.py::test_single_elements_and_unequal_lengths PASSED                        [ 38%]
+test_cases/test_24_merge_sorted_lists.py::test_inputs_unchanged_and_result_is_new PASSED                         [ 40%]
+test_cases/test_25_max_min_list.py::test_normal_list PASSED                                                      [ 42%]
+test_cases/test_25_max_min_list.py::test_single_element PASSED                                                   [ 44%]
+test_cases/test_25_max_min_list.py::test_all_negative PASSED                                                     [ 46%]
+test_cases/test_25_max_min_list.py::test_duplicates_and_floats PASSED                                            [ 48%]
+test_cases/test_25_max_min_list.py::test_empty_raises_value_error PASSED                                         [ 50%]
+test_cases/test_26_sum_of_list.py::test_positive_numbers PASSED                                                  [ 52%]
+test_cases/test_26_sum_of_list.py::test_empty_list PASSED                                                        [ 54%]
+test_cases/test_26_sum_of_list.py::test_single_element PASSED                                                    [ 56%]
+test_cases/test_26_sum_of_list.py::test_negative_and_mixed_numbers PASSED                                        [ 58%]
+test_cases/test_26_sum_of_list.py::test_floats_and_unchanged_input PASSED                                        [ 60%]
+test_cases/test_27_rotate_list.py::test_right_rotation PASSED                                                    [ 62%]
+test_cases/test_27_rotate_list.py::test_empty_and_single_element PASSED                                          [ 64%]
+test_cases/test_27_rotate_list.py::test_negative_rotation PASSED                                                 [ 66%]
+test_cases/test_27_rotate_list.py::test_oversized_and_negative_oversized_rotation PASSED                         [ 68%]
+test_cases/test_27_rotate_list.py::test_input_unchanged_and_new_list_even_without_rotation PASSED                [ 70%]
+test_cases/test_28_set_intersection.py::test_common_elements PASSED                                              [ 72%]
+test_cases/test_28_set_intersection.py::test_empty_sets PASSED                                                   [ 74%]
+test_cases/test_28_set_intersection.py::test_disjoint_sets PASSED                                                [ 76%]
+test_cases/test_28_set_intersection.py::test_negative_numbers_and_strings PASSED                                 [ 78%]
+test_cases/test_28_set_intersection.py::test_identical_sets_return_new_set_without_mutation PASSED               [ 80%]
+test_cases/test_29_armstrong_number.py::test_three_digit_armstrong_numbers PASSED                                [ 82%]
+test_cases/test_29_armstrong_number.py::test_non_armstrong_numbers PASSED                                        [ 84%]
+test_cases/test_29_armstrong_number.py::test_zero_and_single_digits PASSED                                       [ 86%]
+test_cases/test_29_armstrong_number.py::test_negative_numbers PASSED                                             [ 88%]
+test_cases/test_29_armstrong_number.py::test_larger_digit_counts PASSED                                          [ 90%]
+test_cases/test_30_decimal_to_binary.py::test_normal_conversion PASSED                                           [ 92%]
+test_cases/test_30_decimal_to_binary.py::test_zero PASSED                                                        [ 94%]
+test_cases/test_30_decimal_to_binary.py::test_one_and_powers_of_two PASSED                                       [ 96%]
+test_cases/test_30_decimal_to_binary.py::test_larger_numbers_and_string_result PASSED                            [ 98%]
+test_cases/test_30_decimal_to_binary.py::test_negative_raises_value_error PASSED                                 [100%]
+
+================================================== 50 passed in 0.02s ==================================================
+(.venv) anshusingh@192 First_CI_Pipeline % git --no-pager log --oneline --all
+9264b8e (HEAD -> main, origin/main) Add program 30: decimal to binary with tests
+cba0ee8 Add program 29: Armstrong number with tests
+485a7d2 Add program 28: set intersection with tests
+bb11b5a Add program 27: list rotation with tests
+2b0f06a Add program 26: sum of list with tests
+f3845bf Add program 25: maximum and minimum with tests
+4a6dcc3 Add program 24: merge sorted lists with tests
+0b77e00 Add program 23: bubble sort with tests
+e3b9ae4 Add program 22: anagram check with tests
+2587721 Add GitHub Actions workflow for pytest
+ea9fe58 Add program 21: largest word with tests
+(.venv) anshusingh@192 First_CI_Pipeline % gh run list --limit 15
+STATUS  TITLE                                         WORKFLOW   BRANCH  EVENT  ID           ELAPSED  AGE               
+✓       Add program 30: decimal to binary with tests  Python CI  main    push   38622422303  13s      about 18 hours ago
+✓       Add program 29: Armstrong number with tests   Python CI  main    push   38622207531  11s      about 19 hours ago
+✓       Add program 28: set intersection with tests   Python CI  main    push   38621883349  12s      about 19 hours ago
+✓       Add program 28: set intersection with tests   Python CI  main    push   38621883253  13s      about 19 hours ago
+✓       Add program 27: list rotation with tests      Python CI  main    push   38621597289  13s      about 19 hours ago
+✓       Add program 26: sum of list with tests        Python CI  main    push   38621335630  14s      about 19 hours ago
+✓       Add program 25: maximum and minimum with ...  Python CI  main    push   38621173232  18s      about 19 hours ago
+✓       Add program 24: merge sorted lists with t...  Python CI  main    push   38619716272  11s      about 19 hours ago
+✓       Add program 23: bubble sort with tests        Python CI  main    push   38619317410  13s      about 19 hours ago
+✓       Add program 22: anagram check with tests      Python CI  main    push   38618872493  12s      about 19 hours ago
+✓       Add GitHub Actions workflow for pytest        Python CI  main    push   38618166923  14s      about 19 hours ago
+(.venv) anshusingh@192 First_CI_Pipeline % git status
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.DS_Store
+
+nothing added to commit but untracked files present (use "git add" to track)
+(.venv) anshusingh@192 First_CI_Pipeline % git remote -v
+origin	https://github.com/as3115978-ui/First_CI_Pipeline.git (fetch)
+origin	https://github.com/as3115978-ui/First_CI_Pipeline.git (push)
+(.venv) anshusingh@192 First_CI_Pipeline % gh repo view --json
+Specify one or more comma-separated fields for `--json`:
+  archivedAt
+  assignableUsers
+  codeOfConduct
+  contactLinks
+  createdAt
+  defaultBranchRef
+  deleteBranchOnMerge
+  description
+  diskUsage
+  forkCount
+  fundingLinks
+  hasDiscussionsEnabled
+  hasIssuesEnabled
+  hasProjectsEnabled
+  hasWikiEnabled
+  homepageUrl
+  id
+  isArchived
+  isBlankIssuesEnabled
+  isEmpty
+  isFork
+  isInOrganization
+  isMirror
+  isPrivate
+  isSecurityPolicyEnabled
+  isTemplate
+  isUserConfigurationRepository
+  issueTemplates
+  issues
+  labels
+  languages
+  latestRelease
+  licenseInfo
+  mentionableUsers
+  mergeCommitAllowed
+  milestones
+  mirrorUrl
+  name
+  nameWithOwner
+  openGraphImageUrl
+  owner
+  parent
+  primaryLanguage
+  projects
+  projectsV2
+  pullRequestTemplates
+  pullRequests
+  pushedAt
+  rebaseMergeAllowed
+  repositoryTopics
+  securityPolicyUrl
+  squashMergeAllowed
+  sshUrl
+  stargazerCount
+  templateRepository
+  updatedAt
+  url
+  usesCustomOpenGraphImage
+  viewerCanAdminister
+  viewerDefaultCommitEmail
+  viewerDefaultMergeMethod
+  viewerHasStarred
+  viewerPermission
+  viewerPossibleCommitEmails
+  viewerSubscription
+  visibility
+  watchers
+(.venv) anshusingh@192 First_CI_Pipeline % name,owner,visibility,url,defaultBranchRef
+zsh: command not found: name,owner,visibility,url,defaultBranchRef
+(.venv) anshusingh@192 First_CI_Pipeline % find codes -type f -name '*.py' | wc -l
+      10
+(.venv) anshusingh@192 First_CI_Pipeline % find test_cases -type f -name 'test_*.py' | wc -l
+      10
+(.venv) anshusingh@192 First_CI_Pipeline % git check-ignore .venv/bin/python3
+.venv/bin/python3
+(.venv) anshusingh@192 First_CI_Pipeline % git ls-files .venv
+(.venv) anshusingh@192 First_CI_Pipeline % cat requirements.txt
+pytest
+(.venv) anshusingh@192 First_CI_Pipeline % cat pytest.ini
+[pytest]
+pythonpath = codes
+testpaths = test_cases
+(.venv) anshusingh@192 First_CI_Pipeline % cat .gitignore
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+(.venv) anshusingh@192 First_CI_Pipeline % cat .github/workflows/python-ci.yml
+# Display name in the GitHub Actions tab.
+name: Python CI
+
+# Test pushes to main and pull requests targeting main.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    # Each run uses a fresh Ubuntu machine.
+    runs-on: ubuntu-latest
+    steps:
+      # Download repository code and tests.
+      - name: Check out code
+        uses: actions/checkout@v6
+      # Install the assignment's Python version.
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      # Install pytest using the same dependency file as local development.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      # Verbose results show each test; any failure fails the job.
+      - name: Run tests
+        run: python -m pytest -v
+(.venv) anshusingh@192 First_CI_Pipeline % deactivate
+anshusingh@192 First_CI_Pipeline % 
